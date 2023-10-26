@@ -1,6 +1,9 @@
 .DS_Store
 .idea
 .vscode
+.emacs.desktop
+\#*
+*~
 *.vcd
 runs
 src/sim_build
