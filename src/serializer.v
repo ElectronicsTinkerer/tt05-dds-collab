@@ -1,24 +1,16 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/23/2023 08:14:02 PM
-// Design Name: 
-// Module Name: serializer
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
+/**
+Author: Liam Crowley
+Date: 10/23/2023 08:14:02 PM
+Serial Output for DDS Algorith
+INPUTS: Waveform
+OUTPUTS: Serial value of waveform
+PARAMETERS: Input waveform width
+
+Takes waveform input, uses state machine to transfer into shift register then shifts towards MSB to output serial value
+*/
+//////WORK IN PROGRESS
 //////DOOOOII STATE MACHINE
 module serializer
     #(
