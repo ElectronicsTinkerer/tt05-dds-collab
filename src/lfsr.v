@@ -1,26 +1,18 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/22/2023 06:59:26 PM
-// Design Name: 
-// Module Name: lsfr
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+/**
+Author: Liam Crowley
+Date: 10/22/2023 06:59:26 PM
+Noise Output for DDS Algorithm
+INPUTS: Clk
+OUTPUTS: Noise wave output
+PARAMETERS: Input width
+            Output width
+
+Uses linear feedback shift register to produce noise waveform
+*/
 
 //taps come from wikipedia,14 bits is same as phase so only repeats once per complete slowest cycle
-module lsfr
+module lfsr
     #(
     parameter n = 14,
     parameter m = 12
