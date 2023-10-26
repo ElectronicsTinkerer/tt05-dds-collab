@@ -1,24 +1,15 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/21/2023 08:16:45 PM
-// Design Name: 
-// Module Name: pwm
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
+/**
+Author: Liam Crowley
+Date: 10/21/2023 08:16:45 PM
+PWM Output for DDS Algorith
+INPUTS: Waveform
+OUTPUTS: PWM of waveform
+PARAMETERS: Input waveform width
+
+Takes waveform input, increments counter till it hits waveform value, then turns off output
+*/
 
 module pwm
     #( parameter m=12
