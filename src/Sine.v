@@ -1,23 +1,17 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/18/2023 12:57:30 PM
-// Design Name: 
-// Module Name: SIne
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+/**
+Author: Liam Crowley
+Date: 10/18/2023 12:57:30 PM
+Sine Wave Output for DDS Algorith
+INPUTS: Phase value
+OUTPUTS: Sine wave output
+PARAMETERS: Input width
+            Output width
+            Radix of memory
+            Max magnitude of sine wave
+
+Initializes LUT for quarter sine wave then replicates for other values
+*/
 
 
 module Sine
