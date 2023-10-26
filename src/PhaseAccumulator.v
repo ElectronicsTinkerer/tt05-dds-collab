@@ -1,24 +1,16 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/18/2023 01:25:28 PM
-// Design Name: 
-// Module Name: Phase Accumulator
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+/**
+Author: Liam Crowley
+Date: 10-26-23
 
+Phase Accumulator For the DDS algorithm
+INPUTS: tuning word
+        clk
+OUTPUTS: phase register value (Truncated from primary phase register)
+
+phase registere is large for added precision, ideally achieves about 1/3 Hz precision, from 1/3 Hz to ~22kHz
+
+*/
 
 ////MATH SAYS THAT for ~0-20kHz range, at 50/14 MHz, tune needs to be 17 bits
 ////OR n=21
