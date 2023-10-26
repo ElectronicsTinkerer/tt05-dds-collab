@@ -1,23 +1,13 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/18/2023 12:57:30 PM
-// Design Name: 
-// Module Name: Pulse
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+/**
+Author: Liam Crowley
+Date: 10/18/2023 12:57:30 PM
+Pulse Output for DDS Algorith
+INPUTS: Phase value
+OUTPUTS: Pulse
+
+Replicates MSB of phase input value for pulse output
+*/
 
 
 module Pulse
