@@ -1,8 +1,7 @@
 `timescale 1ns / 1ps
 /**
 Author: Liam Crowley
-Date: 10-26-23
-
+Date: 10/18/2023 01:25:28 PM
 Phase Accumulator For the DDS algorithm
 INPUTS: tuning word
         clk
