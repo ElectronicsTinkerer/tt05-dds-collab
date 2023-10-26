@@ -1,24 +1,13 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/21/2023 06:13:43 PM
-// Design Name: 
-// Module Name: mux
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+/**
+Author: Liam Crowley
+Date: 10/21/2023 06:13:43 PM
+Mux for DDS Algorith
+INPUTS: Differnt Waveforms 
+OUTPUTS: Selected output
 
+
+*/
 
 module mux(
     input [11:0] sine,
