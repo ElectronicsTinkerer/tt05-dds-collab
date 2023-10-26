@@ -1,26 +1,15 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/22/2023 12:55:55 PM
-// Design Name: 
-// Module Name: triang
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-//little bit of trickery with replication and xor
-//  takes largest bit and replicates it m times, then uses that xor(0,x)=x and xor(1,x)=~x
+/**
+Author: Liam Crowley
+Date: 10/22/2023 12:55:55 PM
+Triangle Wave Output for DDS Algorith
+INPUTS: Phase value
+OUTPUTS: Triangle wave output
+
+Uses bits of phase to produce triangle waveform; takes largest bit and replicates it m times, then uses that xor(0,x)=x and xor(1,x)=~x
+*/
+ 
 module triang
     #(
     parameter n=14,
