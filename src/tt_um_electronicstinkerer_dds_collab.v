@@ -24,10 +24,10 @@ module tt_um_electronicstinkerer_dds_collab
     input wire        rst_n     // reset_n - low to reset
     );
 
-   luw_rw 
+   lut_rw 
      #(
        .WW(6),
-       .DEPTH(16),
+       .DEPTH(16)
        )
    LUT_REPROG
      (

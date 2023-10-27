@@ -27,13 +27,13 @@ module lut_rw
     parameter DEPTH = 128
     )
    (
-    input clk, we, re,
+    input                     clk, we, re,
     input [$clog2(DEPTH)-1:0] wa, ra,
-    input [WW-1:0] wd,
-    output [WW-1:0] rd
+    input [WW-1:0]            wd,
+    output reg [WW-1:0]       rd
     );
 
-   reg [WW-1:0]     q [0:$clog2(DEPTH)-1];
+   reg [WW-1:0]               q [0:DEPTH-1];
 
    always @(posedge clk) begin
       if (re) begin
