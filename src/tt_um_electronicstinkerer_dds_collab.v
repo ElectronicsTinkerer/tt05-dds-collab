@@ -24,6 +24,10 @@ module tt_um_electronicstinkerer_dds_collab
     input wire        rst_n     // reset_n - low to reset
     );
 
+   assign uio_out = 8'b0;
+   assign uo_out[7:6] = 2'b0;
+   assign uio_oe = 8'b0;
+   
    lut_rw 
      #(
        .WW(6),
