@@ -21,12 +21,12 @@ module mux(
     always @(*)
     begin
         case(sel)
-            3'b000:wave<=sine;
-            3'b001:wave<=saw;
-            3'b010:wave<=pulse;
-            3'b011:wave<=traing;
-            3'b100:wave<=noi;
-            default:wave<=sine;
+            3'b000:wave=sine;
+            3'b001:wave=saw;
+            3'b010:wave=pulse;
+            3'b011:wave=traing;
+            3'b100:wave=noi;
+            default:wave=sine;
         endcase
     end
     

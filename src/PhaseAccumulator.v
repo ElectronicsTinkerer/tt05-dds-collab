@@ -31,5 +31,5 @@ module PhaseAccumulator
     begin
         phase = phase + tuning;
     end
-    assign phaseReg = phase[n-1:n-1-m];
+    assign phaseReg = phase[n-1:n-m];
 endmodule

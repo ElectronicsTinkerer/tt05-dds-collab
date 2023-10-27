@@ -36,13 +36,13 @@ module Sine
     //probably better way to do this but i haven't thought of it yet
     //case of top 2 bits
         if(~phase[n-2]&&~phase[n-1])
-            sine <= lut[phase[n-3:n-9]];
+            sine = lut[phase[n-3:n-9]];
         else if (phase[n-2]&&~phase[n-1])
-            sine <= lut[~phase[n-3:n-9]];
+            sine = lut[~phase[n-3:n-9]];
         else if (~phase[n-2]&&phase[n-1])
-            sine <= mag-lut[phase[n-3:n-9]];
+            sine = mag-lut[phase[n-3:n-9]];
         else if (phase[n-2]&&phase[n-1])
-            sine <= {mag,-lut[~phase[n-3:n-9]]};
+            sine = {mag,-lut[~phase[n-3:n-9]]};
     end    
 
 endmodule
