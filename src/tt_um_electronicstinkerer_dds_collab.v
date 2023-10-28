@@ -24,7 +24,7 @@ module tt_um_electronicstinkerer_dds_collab
     input wire        rst_n     // reset_n - low to reset
     );
 
-   assign uio_out = 8'b0;
+   // assign uio_out = 8'b0;
    // assign uo_out[7:6] = 2'b0;
    assign uio_oe = 8'b0;
    /*
@@ -47,12 +47,12 @@ module tt_um_electronicstinkerer_dds_collab
      Sine
      #(
      .n(14),
-     .m(8)
+     .m(12)
      )
      SINE
      (
      .phase({uio_in[7:0],ui_in[7:2]}),
-     .sine(uo_out[7:0])
+     .sine({uo_out[7:0],uio_out[7:4]})
      );
       
 
