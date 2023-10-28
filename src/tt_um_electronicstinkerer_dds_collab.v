@@ -27,7 +27,7 @@ module tt_um_electronicstinkerer_dds_collab
    assign uio_out = 8'b0;
    assign uo_out[7:6] = 2'b0;
    assign uio_oe = 8'b0;
-   
+   /*
    lut_rw 
      #(
        .WW(6),
@@ -42,7 +42,18 @@ module tt_um_electronicstinkerer_dds_collab
       .wa({uio_in[7:6], ui_in[7:6]}),
       .wd(ui_in[5:0]),
       .rd(uo_out[5:0])
-      );
+      );*/
+
+     Sine
+     #(
+     .n(14),
+     .m(8)
+     )
+     SINE
+     (
+     .phase({uio_in[7:0],ui_in[7:2]}),
+     .sine(uo_out[7:0])
+     );
       
 
 endmodule // tt_um_electronicstinkerer_dds_collab
