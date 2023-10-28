@@ -25,6 +25,7 @@ module tt_um_electronicstinkerer_dds_collab
     );
 
    // assign uio_out = 8'b0;
+   assign uio_out[3:0] = 0;
    // assign uo_out[7:6] = 2'b0;
    assign uio_oe = 8'b0;
    /*
