@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 /**
 Author: Liam Crowley
 Date: 10/18/2023 12:57:30 PM
@@ -19,8 +19,8 @@ module Sine
     parameter n = 14,
     parameter m = 12,
     //integer rad = ((2**n)/4)-1,
-    integer rad = 127,
-    integer mag = (2**m)-1
+    localparam rad = 127,
+    localparam mag = (2**m)-1
     )
     (
     input [n-1:0] phase,
@@ -34,7 +34,8 @@ module Sine
     always @(phase)
     begin
     //probably better way to do this but i haven't thought of it yet
-    //case of top 2 bits
+    //case of top 2 bit
+    /*
         if(~phase[n-2]&&~phase[n-1])
             sine = lut[phase[n-3:n-9]];
         else if (phase[n-2]&&~phase[n-1])
@@ -43,6 +44,13 @@ module Sine
             sine = mag-lut[phase[n-3:n-9]];
         else if (phase[n-2]&&phase[n-1])
             sine = {mag,-lut[~phase[n-3:n-9]]};
+    */
+   	case(phase[n-1:n-2])
+	   	2'b00: sine = lut[phase[n-3:n-9]];
+	   	2'b01: sine = lut[~phase[n-3:n-9]];
+	  	2'b10: sine = ~lut[phase[n-3:n-9]];
+	   	2'b11: sine = ~lut[~phase[n-3:n-9]];
+  	endcase
     end    
 
 endmodule
