@@ -45,6 +45,7 @@ module Sine
         else if (phase[n-2]&&phase[n-1])
             sine = {mag,-lut[~phase[n-3:n-9]]};
     */
+       // Use $clog2(rad) instead of -9
    	case(phase[n-1:n-2])
 	   	2'b00: sine = lut[phase[n-3:n-9]];
 	   	2'b01: sine = lut[~phase[n-3:n-9]];
