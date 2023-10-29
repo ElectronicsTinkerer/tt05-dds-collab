@@ -16,6 +16,7 @@ module top
     )
     (
     input wire clk50,
+    input wire [tune-1:0] tuningW,
     output wire [m-1:0] OUT
     );
 //    (
@@ -30,7 +31,7 @@ module top
 //    );
     wire cDiv18;
     wire [n-1:0] phase;
-    wire [tune-1:0] tuningW;
+   // wire [tune-1:0] tuningW;
     wire [m-1:0] triag;
     wire [m-1:0] pulse;
     wire [m-1:0] saw;

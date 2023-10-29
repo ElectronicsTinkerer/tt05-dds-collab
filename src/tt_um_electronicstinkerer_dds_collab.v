@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 /**
  * Tiny DDS Collab top-level module
  * 
@@ -45,7 +46,7 @@ module tt_um_electronicstinkerer_dds_collab
       .rd(uo_out[5:0])
       );*/
 
-     Sine
+    /* Sine
      #(
      .n(14),
      .m(12)
@@ -54,7 +55,13 @@ module tt_um_electronicstinkerer_dds_collab
      (
      .phase({uio_in[7:0],ui_in[7:2]}),
      .sine({uo_out[7:0],uio_out[7:4]})
-     );
-      
+     );*/
+   top
+     #(.n(14),.m(12),.tune(16))
+   DDStop
+     (.clk50(clk),
+      .OUT({uo_out,uio_out[7:4]}),
+      .tuningW({ui_in,uio_in[7:2]}));
+   
 
 endmodule // tt_um_electronicstinkerer_dds_collab
