@@ -29,7 +29,7 @@ module Sine
     reg [m-1:0] lut[0:rad];
     initial begin
     /////2^13 size, not 13        
-        $readmemh("sin_table.mem",lut);
+        $readmemh("./sin_table.mem",lut);
     end
     always @(phase)
     begin
