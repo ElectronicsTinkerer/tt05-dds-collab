@@ -15,7 +15,8 @@ module tb_spi_main ();
    wire         sclk, mosi, csb;
 
    // Module instantiation
-   spi_main  
+   // spi_main
+   spi_main_x2
      #(
        .WORD_WIDTH(WW)
        )
