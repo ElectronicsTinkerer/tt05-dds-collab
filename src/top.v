@@ -15,8 +15,9 @@ module top
     parameter tune = 16
     )
     (
-    input wire clk50,
+    input wire clk,
     input wire [tune-1:0] tuningW,
+    input wire [2:0] sel,
     output wire [m-1:0] OUT
     );
 //    (
@@ -81,7 +82,7 @@ module top
     saw
     #(
     .n(n),
-    .m(m)
+    //.m(m)
     )
     SAW
     (
