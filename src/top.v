@@ -81,7 +81,7 @@ module top
     
     saw
     #(
-    .n(n),
+    .n(n)
     //.m(m)
     )
     SAW

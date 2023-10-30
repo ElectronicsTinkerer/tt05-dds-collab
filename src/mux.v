@@ -9,14 +9,16 @@ OUTPUTS: Selected output
 
 */
 
-module mux(
-    input [11:0] sine,
-    input [11:0] saw,
-    input [11:0] pulse,
-    input [11:0] traing,
-    input [11:0] noi,
+module mux
+#(parameter m = 12)
+    (
+    input [m-1:0] sine,
+    input [m-1:0] saw,
+    input [m-1:0] pulse,
+    input [m-1:0] traing,
+    input [m-1:0] noi,
     input [2:0] sel,
-    output reg [11:0] wave
+    output reg [m-1:0] wave
     );
     always @(*)
     begin

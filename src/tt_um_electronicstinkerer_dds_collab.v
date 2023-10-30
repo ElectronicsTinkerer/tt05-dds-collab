@@ -59,7 +59,7 @@ module tt_um_electronicstinkerer_dds_collab
    top
      #(.n(14),.m(12),.tune(16))
    DDStop
-     (.clk50(clk),
+     (.clk(clk),
       .OUT({uo_out,uio_out[7:4]}),
       .tuningW({ui_in,uio_in[7:2]}));
    
