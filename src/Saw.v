@@ -10,7 +10,7 @@ Uses 12 MSB of phase input value for saw output
 */
 
 
-module saw#
+module Saw#
     (
     parameter n = 14
     )

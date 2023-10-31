@@ -33,7 +33,7 @@ module top
     wire cDiv18;
     wire [n-1:0] phase;
    // wire [tune-1:0] tuningW;
-    wire [m-1:0] triag;
+    wire [m-1:0] triang;
     wire [m-1:0] pulse;
     wire [m-1:0] saw;
     wire [m-1:0] sine;
@@ -41,7 +41,7 @@ module top
     //assign tuningW = {ui_in,uio_in};
     //assign {uo_out,uio_out[7:4]} = OUT;
         
-    div14 #(
+    div #(
     ) DIV
     (.clkI(clk),
     .clkO(cDiv18)
@@ -60,14 +60,14 @@ module top
     .phaseReg(phase)
     );
     
-    triang 
+    Tri
     #(
     .n(n),
     .m(m)
     )
-    TRIA (
+    TRI (
     .phase(phase),
-    .triag(triag)
+    .triang(triang)
     );
     
     Pulse
@@ -81,7 +81,7 @@ module top
     .pulse(pulse)
     );
     
-    saw
+    Saw
     #(
     .n(n)
     //.m(m)
@@ -123,7 +123,7 @@ module top
     .sine(sine),
     .saw(saw),
     .pulse(pulse),
-    .traing(triag),
+    .traing(triang),
     .noi(lfsr),
     .sel(sel),
     .wave(OUT)
