@@ -38,6 +38,8 @@ module tt_um_electronicstinkerer_dds_collab
    assign sel2 = uio_oe[5:3];
    assign sel3 = uio_oe[2:0];
    assign Oi3 = 0;
+   assign Oi2 = 0;
+   
    
 //   assign sel = 3'b000;
    
@@ -104,13 +106,15 @@ module tt_um_electronicstinkerer_dds_collab
       .sel(sel1),
       .tuningW(Io1));
    
-   top
+   /*
+    * top
      #(.n(14),.m(12),.tune(16))
    VOICE2
      (.clk(clk),
       .OUT(Oi2),
       .sel(sel2),
       .tuningW(Io2));
+    */
    
    /*
     * top
