@@ -37,6 +37,7 @@ module tt_um_electronicstinkerer_dds_collab
    assign sel1 = uio_oe[2:0];
    assign sel2 = uio_oe[5:3];
    assign sel3 = uio_oe[2:0];
+   assign Oi3 = 0;
    
 //   assign sel = 3'b000;
    
