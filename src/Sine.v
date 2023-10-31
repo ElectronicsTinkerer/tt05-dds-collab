@@ -1,4 +1,4 @@
-//`timescale 1ns / 1ps
+`timescale 1ns / 1ps
 /**
 Author: Liam Crowley
 Date: 10/18/2023 12:57:30 PM
@@ -35,7 +35,8 @@ module Sine
     begin
     //probably better way to do this but i haven't thought of it yet
     //case of top 2 bit
-    /*
+       /*
+	* 
         if(~phase[n-2]&&~phase[n-1])
             sine = lut[phase[n-3:n-9]];
         else if (phase[n-2]&&~phase[n-1])
@@ -44,7 +45,8 @@ module Sine
             sine = mag-lut[phase[n-3:n-9]];
         else if (phase[n-2]&&phase[n-1])
             sine = {mag,-lut[~phase[n-3:n-9]]};
-    */
+    
+	*/
        // Use $clog2(rad) instead of -9
    	case(phase[n-1:n-2])
 	   	2'b00: sine = lut[phase[n-3:n-9]];

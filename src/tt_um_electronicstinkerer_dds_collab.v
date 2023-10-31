@@ -29,6 +29,9 @@ module tt_um_electronicstinkerer_dds_collab
    assign uio_out[3:0] = 0;
    // assign uo_out[7:6] = 2'b0;
    assign uio_oe = 8'b0;
+   wire   [2:0] sel;
+   assign sel = 3'b000;
+   
    /*
    lut_rw 
      #(
@@ -61,6 +64,7 @@ module tt_um_electronicstinkerer_dds_collab
    DDStop
      (.clk(clk),
       .OUT({uo_out,uio_out[7:4]}),
+      .sel(sel),
       .tuningW({ui_in,uio_in}));
    
 

@@ -49,6 +49,8 @@ module top
     
     PhaseAccumulator
     #(
+    .n(23),
+    .m(n),
     .tune(tune)
     )
     PA

@@ -33,7 +33,7 @@ module tb_top (/*AUTOARG*/ ) ;
       forever #10 clk=~clk;
    end
    initial begin
-      tuningW=16'h3fff;
+      tuningW=16'hffff;
       sel = 3'b000;
    end
 endmodule // tb_top

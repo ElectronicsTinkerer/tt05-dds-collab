@@ -13,7 +13,10 @@ phase registere is large for added precision, ideally achieves about 1/3 Hz prec
 
 ////MATH SAYS THAT for ~0-20kHz range, at 50/14 MHz, tune needs to be 17 bits
 ////OR n=21
+//For fixed 16 bit tune
+/// at 50/18MHz clk, n = 23 for a 21.7kHz range with 331.1mHz resolution
 
+/// at 50MHz clk, n = 27 for a 24.41kHz range with 372.5mHz resolution
 module PhaseAccumulator
     #(
     parameter n = 23,
