@@ -20,12 +20,12 @@ module I_mux
  (
  /*AUTOARG*/
    // Outputs
-   out0, out1, out2, out3,
+   out0, out1,
    // Inputs
    in, sel
    ) ;
    input [m-1:0]	in;
-   output reg [m-1:0]	out0, out1, out2, out3;
+   output reg [m-1:0]	out0, out1;// out2, out3;
    input [1:0]		sel;
    always @(*) begin
    case (sel) 
@@ -35,14 +35,16 @@ end
      2'b01: begin
 	out1 = in;
 end
-     2'b10: begin
+     /*
+      * 2'b10: begin
 	out2 = in;
 end
      2'b11: begin
 	out3 = in;
-end
+end*/
      default: begin
 	out0 = in;
+      
 end
    endcase // case (sel)
    end
