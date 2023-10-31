@@ -42,7 +42,7 @@ end
 	out3 = in;
 end
      default: begin
-	assign out0 = in;
+	out0 = in;
 end
    endcase // case (sel)
    end
