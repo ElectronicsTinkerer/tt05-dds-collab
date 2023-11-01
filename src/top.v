@@ -3,8 +3,8 @@
 Author: Liam Crowley
 Date: 10/29/2023 06:49:21 PM
 Top wrapper file for the DDS algorithm
-INPUTS: 50MHz clk
-OUTPUTS: waveform post mux
+INPUTS: 50/19MHz clk
+OUTPUTS: Waveform post mux
 
 */
 
@@ -15,10 +15,12 @@ module top
     parameter tune = 16
     )
     (
-    input wire clk,
+    input wire		  clk,
     input wire [tune-1:0] tuningW,
-    input wire [2:0] sel,
-    output wire [m-1:0] OUT
+    input wire [2:0]	  sel,
+    output wire [m-1:0]	  OUT,
+    input wire		  CE,
+    input wire [m-1:0]	  mod	  
     );
 //    (
 //    input wire [7:0]  ui_in, // Dedicated inputs - connected to the input switches
@@ -30,22 +32,24 @@ module top
 //    input wire        clk, // clock
 //    input wire        rst_n     // reset_n - low to reset
 //    );
-    wire cDiv18;
+//    wire cDiv18;
     wire [n-1:0] phase;
-   // wire [tune-1:0] tuningW;
-    wire [m-1:0] triang;
-    wire [m-1:0] pulse;
-    wire [m-1:0] saw;
-    wire [m-1:0] sine;
-    wire [m-1:0] lfsr;
-    //assign tuningW = {ui_in,uio_in};
+    wire [m-1:0]	triang;
+    wire [m-1:0]	pulse;
+    wire [m-1:0]	saw;
+    wire [m-1:0]	sine;
+    wire [m-1:0]	lfsr;
+    wire [m-1:0]	pwm;
+   //assign tuningW = {ui_in,uio_in};
     //assign {uo_out,uio_out[7:4]} = OUT;
-        
+   /*
+    * 
     div #(
     ) DIV
     (.clkI(clk),
     .clkO(cDiv18)
     );
+    */
     
     PhaseAccumulator
     #(
@@ -55,7 +59,8 @@ module top
     )
     PA
     (
-    .clk(cDiv18),
+    .ce(CE),
+    .clk(clk),
     .tuning(tuningW),
     .phaseReg(phase)
     );
@@ -84,12 +89,11 @@ module top
     Saw
     #(
     .n(n)
-    //.m(m)
     )
     SAW
     (
     .phase(phase),
-    .outp(saw)
+    .saw(saw)
     );
     
     Sine
@@ -103,16 +107,29 @@ module top
     .sine(sine)
     );
     
-    lfsr
+    Lfsr
     #(
     .n(n),
     .m(m)
     )
     LFSR
     (
-    .clk(cDiv18),
-    .oot(lfsr)
+    .clk(clk),
+    .lfsr(lfsr)
     );
+
+    Pwm
+    #(
+    .n(n),
+    .m(m))
+    PWM
+    (
+    .phase(phase),
+    .mod(mod),
+    .pwm(pwm)
+    );
+
+   
     
     mux
     #(
@@ -125,6 +142,7 @@ module top
     .pulse(pulse),
     .traing(triang),
     .noi(lfsr),
+    .pwm(pwm),
     .sel(sel),
     .wave(OUT)
     );

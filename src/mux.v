@@ -12,12 +12,13 @@ OUTPUTS: Selected output
 module mux
 #(parameter m = 12)
     (
-    input [m-1:0] sine,
-    input [m-1:0] saw,
-    input [m-1:0] pulse,
-    input [m-1:0] traing,
-    input [m-1:0] noi,
-    input [2:0] sel,
+    input [m-1:0]      sine,
+    input [m-1:0]      saw,
+    input [m-1:0]      pulse,
+    input [m-1:0]      traing,
+    input [m-1:0]      noi,
+    input [m-1:0]      pwm,
+    input [2:0]	       sel,
     output reg [m-1:0] wave
     );
     always @(*)
@@ -28,6 +29,7 @@ module mux
             3'b010:wave=pulse;
             3'b011:wave=traing;
             3'b100:wave=noi;
+	    3'b101:wave=pwm;
             default:wave=sine;
         endcase
     end

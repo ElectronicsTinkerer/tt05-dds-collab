@@ -10,13 +10,13 @@ Uses 12 MSB of phase input value for saw output
 */
 
 
-module Saw#
-    (
+module Saw
+    #(
     parameter n = 14
     )
     (
     input [n-1:0] phase,
-    output wire [n-3:0] outp
+    output wire [n-3:0] saw
     );
-    assign outp = phase[n-1:2];
+    assign saw = phase[n-1:2];
 endmodule

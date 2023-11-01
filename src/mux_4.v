@@ -1,6 +1,6 @@
 `timescale 1ns/100ps
 /*
-Filename      : O_mux.v
+Filename      : mux_4.v
 Author        : Liam Crowley
 Created       : Tue Oct 31 10:28:23 2023
 INPUTS        : in0
@@ -10,10 +10,10 @@ INPUTS        : in0
 OUTPUTS       : out
 PARAMETERS    : m
 
-Description   : Output mux for testing multiple voices
+Description   : Parameterized 4 input mux
 */
 
-module O_mux 
+module mux_4 
 #(
   parameter m = 12
   )
@@ -21,9 +21,9 @@ module O_mux
    // Outputs
    out,
    // Inputs
-   in0, in1, sel
+   in0, in1, in2, in3, sel
    ) ;
-   input  [m-1:0] in0, in1;//, in2, in3;
+   input  [m-1:0] in0, in1, in2, in3;
    output reg [m-1:0] out;
    input  [1:0] sel;
    always @ (*) begin
@@ -34,14 +34,12 @@ module O_mux
 	2'b01: begin
 	   out = in1;
 	end
-	/*
-	 * 2'b10: begin
+	2'b10: begin
 	   out = in2;
 	end
 	2'b11: begin
 	   out = in3;
 	end
-	 */
 	default: begin
 	   out = in0;
 	end

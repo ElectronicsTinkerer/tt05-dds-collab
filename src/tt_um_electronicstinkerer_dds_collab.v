@@ -12,7 +12,10 @@
 
 module tt_um_electronicstinkerer_dds_collab 
   #(
-    parameter FOO = 0
+    parameter FOO = 0,
+    parameter tuneW = 16, //tuning word width
+    parameter waveW = 12, //waveform width
+    parameter phaseW = 14 //phase from phase accumulator width
     )
    (
     input wire [7:0]  ui_in, // Dedicated inputs - connected to the input switches
@@ -25,17 +28,117 @@ module tt_um_electronicstinkerer_dds_collab
     input wire        rst_n     // reset_n - low to reset
     );
 
-   assign uio_out[3:0] = 0;
-   assign uio_out[3:0] = 0;
+   // assign uio_out[3:0] = 0;
+   // assign uio_out[3:0] = 0;
    // assign uo_out[7:6] = 2'b0;
-   //assign uio_oe = 8'b0;
+   // assign uio_oe = 8'b0;
    
-   wire   [2:0] sel0;//sel1;// sel2, sel3;
-   wire [16-1:0] Io0;// Io1;// Io2, Io3;
-   wire [12-1:0] Oi0;// Oi1;// Oi2, Oi3;
+   wire [2:0]    sel0, sel1;// sel2, sel3;
+   wire [tuneW-1:0] Io0, Io1;// Io2, Io3; //Freq input to voices
+   wire [waveW-1:0] Oi0, Oi1;// Oi2, Oi3; //Wave out from voices
+   wire		 cDiv;
+   wire [waveW-1:0] mod0, mod1, ext0, ext1;//modulation inputs for pwm
+   wire		 E0, E1, Psel; //enable and select internal external pwm for voice 0
+   wire   [waveW-1:0] OUT;
+   wire   Osel;
+   assign Psel = uio_oe[7];
+   assign Osel = uio_oe[6];
    assign sel0 = uio_oe[5:3];
-   assign {uo_out,uio_out[7:4]} = Oi0;
+   assign sel1 = uio_oe[2:0];
+   assign {uo_out,uio_out[7:4]} = OUT;
    assign Io0 = {ui_in,uio_in};
+   assign Io1 = {ui_in,uio_in};
+   assign uio_out[3:0] = 0;
+   assign E1 = 1;
+   assign E0 = 1;
+   
+
+   div DIV
+     (.clkI(clk),
+      .clkO(cDiv));
+   
+   top
+     #(.n(phaseW),.m(waveW),.tune(tuneW))
+   VOICE0
+     (.CE(E0),
+      .clk(cDiv),
+      .OUT(Oi0),
+      .sel(sel0),
+      .tuningW(Io0),
+      .mod(mod0));
+   
+   mux_2
+     #(.m(waveW))
+   PULS_MUX
+     (.in0(Oi1),
+      .in1(ext0),
+      .sel(Psel),
+      .out(mod0));
+
+   assign mod1 = ext1;
+   top
+     #(.n(phaseW),.m(waveW),.tune(tuneW))
+   VOICE1
+     (.CE(E1),
+      .clk(cDiv),
+      .OUT(Oi1),
+      .sel(sel1),
+      .tuningW(Io1),
+      .mod(mod1));
+
+   mux_2
+     #(.m(waveW))
+   OUTMUX
+     (.sel(Osel),
+      .in0(Oi0),
+      .in1(Oi1),
+      .out(OUT));
+
+endmodule // tt_um_electronicstinkerer_dds_collab
+
+
+/*
+   top
+     #(.n(14),.m(12),.tune(16))
+   VOICE1
+     (.clk(clk),
+      .OUT(Oi1),
+      .sel(sel1),
+      .tuningW(Io1));
+   *
+    * top
+     #(.n(14),.m(12),.tune(16))
+   VOICE2
+     (.clk(clk),
+      .OUT(Oi2),
+      .sel(sel2),
+      .tuningW(Io2));
+    */
+   
+   /*
+    * top
+     #(.n(14),.m(12),.tune(16))
+   VOICE3
+     (.clk(clk),
+      .OUT(Oi3),
+      .sel(sel3),
+      .tuningW(Io3));
+    */
+   
+
+   
+       /*
+	* top
+     #(.n(14),.m(12),.tune(16))
+   DDStop
+     (.clk(clk),
+      .OUT({uo_out,uio_out[7:4]}),
+      .sel(sel),
+      .tuningW(Io0);
+   
+	*/
+   
+
    //assign sel1 = uio_oe[2:0];
    /*
     * assign sel2 = uio_oe[5:3];
@@ -99,53 +202,3 @@ module tt_um_electronicstinkerer_dds_collab
        .sel(uio_oe[7:6]),
        .out({uo_out,uio_out[7:4]}));
    */
-
-   top
-     #(.n(14),.m(12),.tune(16))
-   VOICE0
-     (.clk(clk),
-      .OUT(Oi0),
-      .sel(sel0),
-      .tuningW(Io0));
-   /*
-   top
-     #(.n(14),.m(12),.tune(16))
-   VOICE1
-     (.clk(clk),
-      .OUT(Oi1),
-      .sel(sel1),
-      .tuningW(Io1));
-   *
-    * top
-     #(.n(14),.m(12),.tune(16))
-   VOICE2
-     (.clk(clk),
-      .OUT(Oi2),
-      .sel(sel2),
-      .tuningW(Io2));
-    */
-   
-   /*
-    * top
-     #(.n(14),.m(12),.tune(16))
-   VOICE3
-     (.clk(clk),
-      .OUT(Oi3),
-      .sel(sel3),
-      .tuningW(Io3));
-    */
-   
-
-   
-       /*
-	* top
-     #(.n(14),.m(12),.tune(16))
-   DDStop
-     (.clk(clk),
-      .OUT({uo_out,uio_out[7:4]}),
-      .sel(sel),
-      .tuningW(Io0);
-   
-	*/
-
-endmodule // tt_um_electronicstinkerer_dds_collab

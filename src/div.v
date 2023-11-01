@@ -11,6 +11,7 @@ Divides main 50MHz clock by 18 for phase accumulator to give overhead for parall
 
 ///DIVIDES 50MHz primary clock by 14 to give time for serialization w/ 2 clock cycles overhead
 //NEEDS DIV 18 NOT 14
+//Needs div 19 actually
 module div
     (
     input clkI,
@@ -18,9 +19,9 @@ module div
     );
    reg [4:0] i = 0;
    always @ (posedge clkI) begin
-        i=i+1;
-        clkO=i[4]&i[0];
-        if(i[4]&i[1]) i=0;
+        i<=i+1;
+        clkO<=i[4]&i[1];
+        if(i[4]&i[1]&i[0]) i<=0;
    end
    
    /*
