@@ -8,6 +8,8 @@
  * 
  */
 
+//PRESENTLY INSTATIATES DIFFERENT SINE LUTS//
+
 `default_nettype none
 
 module tt_um_electronicstinkerer_dds_collab 
@@ -25,30 +27,33 @@ module tt_um_electronicstinkerer_dds_collab
     input wire [7:0] uio_oe, // IOs: Bidirectional Enable path (active high: 0=input, 1=output)
     input wire        ena, // will go high when the design is enabled
     input wire        clk, // clock
-    input wire        rst_n     // reset_n - low to reset
-    );
+    input wire        rst_n     // reset_n - low to reset 
+   );
 
    // assign uio_out[3:0] = 0;
    // assign uio_out[3:0] = 0;
    // assign uo_out[7:6] = 2'b0;
    // assign uio_oe = 8'b0;
+   assign uo_out[4:0] = 0;
+   assign uio_out = 0;
    
-   wire [2:0]    sel0, sel1;// sel2, sel3;
+   
+   wire [2:0]       sel0, sel1;// sel2, sel3;
    wire [tuneW-1:0] Io0, Io1;// Io2, Io3; //Freq input to voices
    wire [waveW-1:0] Oi0, Oi1;// Oi2, Oi3; //Wave out from voices
-   wire		 cDiv;
+   wire		    cDiv;
    wire [waveW-1:0] mod0, mod1, ext0, ext1;//modulation inputs for pwm
-   wire		 E0, E1, Psel; //enable and select internal external pwm for voice 0
-   wire   [waveW-1:0] OUT;
-   wire   Osel;
+   wire		    E0, E1, Psel; //enable and select internal external pwm for voice 0
+   wire [waveW-1:0] OUT;
+   wire		      Osel;
    assign Psel = uio_oe[7];
    assign Osel = uio_oe[6];
    assign sel0 = uio_oe[5:3];
    assign sel1 = uio_oe[2:0];
-   assign {uo_out,uio_out[7:4]} = OUT;
+   //assign {uo_out,uio_out[7:4]} = OUT;
    assign Io0 = {ui_in,uio_in};
    assign Io1 = {ui_in,uio_in};
-   assign uio_out[3:0] = 0;
+  // assign uio_out[3:0] = 0;
    assign E1 = 0;
    assign E0 = 0;
    assign ext0 = 12'hfff;
@@ -97,6 +102,19 @@ module tt_um_electronicstinkerer_dds_collab
       .in1(Oi1),
       .out(OUT));
 
+   spi_main_x2
+     #(.WORD_WIDTH(16))
+   SPIO
+     (
+      .sys_clk(clk),
+      .parallel_in(OUT),
+      .power_state(2'b11),
+      .load(cDiv),
+      .sclk(uo_out[7]),
+      .mosi(uo_out[6]),
+      .csb(uo_out[5])
+      );
+   
 endmodule // tt_um_electronicstinkerer_dds_collab
 
 
