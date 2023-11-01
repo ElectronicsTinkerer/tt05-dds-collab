@@ -107,7 +107,7 @@ module tt_um_electronicstinkerer_dds_collab
    SPIO
      (
       .sys_clk(clk),
-      .parallel_in(OUT),
+      .parallel_in({OUT,2'b11}),
       .power_state(2'b11),
       .load(cDiv),
       .sclk(uo_out[7]),
