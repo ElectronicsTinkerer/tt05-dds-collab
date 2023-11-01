@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 100ps
 /**
  * Tiny DDS Collab top-level module
  * 
@@ -50,10 +50,10 @@ module tt_um_electronicstinkerer_dds_collab
    assign Osel = uio_oe[6];
    assign sel0 = uio_oe[5:3];
    assign sel1 = uio_oe[2:0];
-   assign {uo_out,uio_out[7:4]} = OUT;
+   //assign {uo_out,uio_out[7:4]} = OUT;
    assign Io0 = {ui_in,uio_in};
    assign Io1 = {ui_in,uio_in};
-   assign uio_out[3:0] = 0;
+  // assign uio_out[3:0] = 0;
    assign E1 = 0;
    assign E0 = 0;
    assign ext0 = 12'hfff;
@@ -102,8 +102,7 @@ module tt_um_electronicstinkerer_dds_collab
       .in1(Oi1),
       .out(OUT));
 
-   /*
-    * spi_main_x2
+   spi_main_x2
      #(.WORD_WIDTH(16))
    SPIO
      (
@@ -115,7 +114,7 @@ module tt_um_electronicstinkerer_dds_collab
       .mosi(uo_out[6]),
       .csb(uo_out[5])
       );
-    */
+   
    
 endmodule // tt_um_electronicstinkerer_dds_collab
 

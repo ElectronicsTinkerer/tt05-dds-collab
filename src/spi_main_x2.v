@@ -26,7 +26,7 @@
  *   csb  - Active low chip select output
  *   
  */
-
+`timescale 1ns/100ps
 module spi_main_x2
   #(
     parameter WORD_WIDTH = 16
