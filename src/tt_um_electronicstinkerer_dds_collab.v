@@ -51,6 +51,9 @@ module tt_um_electronicstinkerer_dds_collab
    assign uio_out[3:0] = 0;
    assign E1 = 1;
    assign E0 = 1;
+   assign ext0 = 12'hfff;
+   assign ext1 = 12'hfff;
+   
    
 
    div DIV
