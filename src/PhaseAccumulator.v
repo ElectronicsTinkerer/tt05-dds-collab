@@ -40,7 +40,7 @@ module PhaseAccumulator
     always @(posedge clk) 
       begin
 	 if(ce) phase = 0;
-	 else phase = phase + tuning;
+	 else phase = phase + {{n-tune{1'b0}},tuning};
     end
     assign phaseReg = phase[n-1:n-m];
 endmodule

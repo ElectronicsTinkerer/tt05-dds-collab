@@ -44,7 +44,7 @@ module tt_um_electronicstinkerer_dds_collab
    wire		    cDiv;
    wire [waveW-1:0] mod0, mod1, ext0, ext1;//modulation inputs for pwm
    wire		    E0, E1, Psel; //enable and select internal external pwm for voice 0
-   wire [waveW-1:0] OUT;
+   wire [16-1:0] OUT;
    wire		      Osel;
    assign Psel = uio_oe[7];
    assign Osel = uio_oe[6];
@@ -94,6 +94,16 @@ module tt_um_electronicstinkerer_dds_collab
       .tuningW(Io1),
       .mod(mod1));
 
+   Mod
+     #(.m(waveW),.o(16))
+   MOD
+     (.clk(clk),
+      .OSC0(Oi0),
+      .OSC1(Oi1),
+      .modSel(sel1[1:0]),
+      .modOut(OUT));
+   
+/* -----\/----- EXCLUDED -----\/-----
    mux_2
      #(.m(waveW))
    OUTMUX
@@ -101,13 +111,14 @@ module tt_um_electronicstinkerer_dds_collab
       .in0(Oi0),
       .in1(Oi1),
       .out(OUT));
+ -----/\----- EXCLUDED -----/\----- */
 
    spi_main_x2
      #(.WORD_WIDTH(16))
    SPIO
      (
       .sys_clk(clk),
-      .parallel_in({OUT,4'b1111}),
+      .parallel_in(OUT),
       .power_state(2'b11),
       .load(cDiv),
       .sclk(uo_out[7]),

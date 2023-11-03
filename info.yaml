@@ -23,6 +23,8 @@ project:
     - mux_5.v
     - Pwm.v
     - spi_main_x2.v
+    - Mod.v
+    - Mult.v
   top_module:  "tt_um_electronicstinkerer_dds_collab"      # Put the name of your top module here, must start with "tt_um_". Make it unique by including your github username
 
 # How many tiles your design occupies? A single tile is about 167x108 uM.
