@@ -45,9 +45,11 @@ module tt_um_electronicstinkerer_dds_collab
    wire [waveW-1:0] mod0, mod1, ext0, ext1;//modulation inputs for pwm
    wire		    E0, E1, Psel; //enable and select internal external pwm for voice 0
    wire [16-1:0] OUT;
-   wire		      Osel;
-   assign Psel = uio_oe[7];
-   assign Osel = uio_oe[6];
+   //wire		      Osel;
+   //assign uio_oe[7] = 0;
+   
+   assign Psel = uio_oe[6];
+   //assign Osel = uio_oe[6];
    assign sel0 = uio_oe[5:3];
    assign sel1 = uio_oe[2:0];
    //assign {uo_out,uio_out[7:4]} = OUT;

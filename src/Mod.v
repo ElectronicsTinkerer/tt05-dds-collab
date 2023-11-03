@@ -21,10 +21,10 @@ module Mod #(parameter m = 12,parameter o=16)(/*AUTOARG*/
    ) ;
    input  [m-1:0] OSC0, OSC1;
    input	  clk;
-   output [o-1:0] modOut;
+   output modOut;
    input [1:0]	  modSel;
-   reg		  modOut;
-   reg [o-1:0] multO;
+   reg	[o-1:0]	  modOut;
+   wire [o-1:0] multO;
    Mult #(.m(o/2)) MULT (.a(OSC0[(o/2)-1:0]),.b(OSC1[(o/2)-1:0]),.clk(clk),.mult(multO));
    always @ ( /*AUTOSENSE*/OSC0 or OSC1 or modSel or multO) begin
       case (modSel) 
