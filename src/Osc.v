@@ -8,7 +8,7 @@ OUTPUTS: Waveform post mux
 
 */
 
-module top
+module Osc
     #(
     parameter n = 14,
     parameter m = 12,
