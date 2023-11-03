@@ -38,12 +38,13 @@ module cmd_decoder
   )
   (
    // Control signals in
-   input [7:0]                   cmd_word,
-   input [DATAWORD_WIDTH-1:0]    data_word,
-   input                         cmd_valid,
+   input [7:0]                       cmd_word,
+   input [DATAWORD_WIDTH-1:0]        data_word,
+   input                             cmd_valid,
+   input                             sys_clk,
    // Oscillator
-   output reg                    osc0_en,
-   output reg                    osc1_en,
+   output reg                        osc0_en,
+   output reg                        osc1_en,
    // Data outputs
    output reg [TUNING_WIDTH-1:0]     osc0_tune, osc1_tune,
    output reg [WAVE_SEL_WIDTH-1:0]   osc0_wave, osc1_wave,
@@ -66,12 +67,13 @@ module cmd_decoder
    wire osc1_set_pw;
    wire osc1_set_wave;
    wire set_mode;
+   wire osc0_en_pre, osc1_en_pre;
 
    reg [7:0] cmd_word_reg;
    reg [DATAWORD_WIDTH-1:0] data_word_reg;
 
    // Capture input controls when they are valid
-   always @(posedge clk) begin
+   always @(posedge sys_clk) begin
       if (cmd_valid) begin
          cmd_word_reg <= cmd_word;
          data_word_reg <= data_word;
@@ -103,9 +105,9 @@ module cmd_decoder
 
    // Handle saving of control data
    // (completely ignoring dynamic power concerns...)
-   always @(posedge clk) begin
-      osc0_en <= osc_en_pre;
-      osc1_en <= osc_en_pre;
+   always @(posedge sys_clk) begin
+      osc0_en <= osc0_en_pre;
+      osc1_en <= osc1_en_pre;
       if (osc0_set_tune) begin
          osc0_tune <= osc0_tune_pre;
       end
