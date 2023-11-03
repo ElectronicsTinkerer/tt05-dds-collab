@@ -29,7 +29,9 @@ module Sine
     reg [m-1:0] lut[0:rad];
     initial begin
     /////2^13 size, not 13        
-        $readmemh("//wsl.localhost/Ubuntu/home/lsc57/tt05-dds-collab/src/sin_table.mem",lut);
+       // $readmemh("//wsl.localhost/Ubuntu/home/lsc57/tt05-dds-collab/src/sin_table.mem",lut);
+       $readmemh("./sin_table.mem",lut);
+       
     end
     always @(phase)
     begin
