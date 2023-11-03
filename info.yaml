@@ -6,25 +6,26 @@ project:
 # If using an HDL, set wokwi_id as 0 and uncomment and list your source files here. 
 # Source files must be in ./src and you must list each source file separately
   source_files:        
-    - lut_rw.v
-    - tt_um_electronicstinkerer_dds_collab.v
-    - Sine.v
+    - div.v
     - mux.v
+    - mux_4.v
+    - mux_2.v
+    - mux_5.v
+    - I_mux.v
+    - Sine.v
     - Lfsr.v
     - Saw.v
     - Pulse.v
     - Tri.v
-    - PhaseAccumulator.v
-    - div.v
-    - top.v
-    - I_mux.v
-    - mux_4.v
-    - mux_2.v
-    - mux_5.v
     - Pwm.v
-    - spi_main_x2.v
+    - PhaseAccumulator.v
+    - Osc.v
     - Mod.v
     - Mult.v
+    - spi_in.v
+    - cmd_decoder.v
+    - spi_main_x2.v
+    - tt_um_electronicstinkerer_dds_collab.v
   top_module:  "tt_um_electronicstinkerer_dds_collab"      # Put the name of your top module here, must start with "tt_um_". Make it unique by including your github username
 
 # How many tiles your design occupies? A single tile is about 167x108 uM.
