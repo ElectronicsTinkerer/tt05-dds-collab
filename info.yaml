@@ -40,7 +40,7 @@ yaml_version: 4
 #
 # Here is a great example: https://github.com/davidsiaw/tt02-davidsiaw-stackcalc/blob/38c5647f83aad2aec675d566aa3d67b98f0aac81/info.yaml
 documentation: 
-  author:       "Zach Baldwin"      # Your name
+  author:       "Zach Baldwin, Liam Crowley"      # Your name
   title:        "DDS Collab"      # Project title
   language:     "Verilog" # other examples include Verilog, Amaranth, VHDL, etc
   description:  "Makes noises"      # Short description of what your project does
@@ -55,34 +55,34 @@ documentation:
 
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
+    - SPI CLK  (Control Data In)
+    - SPI MOSI (Control Data In)
+    - SPI CSB  (Control Data In)
     - none
     - none
     - none
-    - none
-    - none
-    - none
-    - none
-    - none
+    - DAC SPEED SELECT (High = half speed output shift, LOW = full speed shift)
+    - OSC0 PW SELECT (High = use external pulse width, LOW = use OSC1 output as pulse width)
 # A description of what the outputs do (e.g. status LED, SPI MISO, etc)
   outputs:
-    - segment a
-    - segment b
-    - segment c
-    - segment d
-    - segment e
-    - segment f
-    - segment g
-    - dot
+    - unused
+    - unused
+    - unused
+    - unused
+    - unused
+    - DAC CSB
+    - DAC MOSI
+    - DAC SCLK
 # A description of what the bidirectional I/O pins do (e.g. I2C SDA, I2C SCL, etc)
   bidirectional:
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
-    - none
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 4
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 5
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 6
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 7
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 8
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 9
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 10
+    - IN: OSC0 EXTERNAL PULSE WIDTH BIT 11
 
 # The following fields are optional
   tag:          "dds, sound, serial"      # comma separated list of tags: test, encryption, experiment, clock, animation, utility, industrial, pwm, fpga, alu, microprocessor, risc, riscv, sensor, signal generator, fft, filter, music, bcd, sound, serial, timer, random number generator, calculator, decoder, counter, puzzle, multiplier, game, oscillator,
