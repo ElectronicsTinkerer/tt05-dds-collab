@@ -17,12 +17,12 @@ module Mod #(parameter m = 12,parameter o=16)(/*AUTOARG*/
    // Outputs
    modOut,
    // Inputs
-   OSC0, OSC1, clk, cDiv, modSel
+   OSC0, OSC1, clk, modSel
    ) ;
    input  [m-1:0] OSC0, OSC1;
    input	  clk;
    output reg [o-1:0] modOut;
-   input	  cDiv;
+   //input	  cDiv;
    input [1:0]	  modSel;
    wire [o-1:0]	  multO;
    Mult #(.m(o/2))
