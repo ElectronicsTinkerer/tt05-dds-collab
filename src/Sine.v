@@ -33,7 +33,7 @@ module Sine
        $readmemh("./sin_table.mem",lut);
        
     end
-    always @(phase)
+    always @(phase or lut)
     begin
     //probably better way to do this but i haven't thought of it yet
     //case of top 2 bit
