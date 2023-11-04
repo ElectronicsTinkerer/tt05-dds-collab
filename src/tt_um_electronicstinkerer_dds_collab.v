@@ -32,7 +32,7 @@ module tt_um_electronicstinkerer_dds_collab
   );
 
    wire [2:0]       osc0_wave_sel, osc1_wave_sel;
-   wire [1:0]       mod_sel;
+   wire [2:0]       mod_sel;
    wire [tuneW-1:0] osc0_tune, osc1_tune;
    wire [waveW-1:0] osc0_wave_out, osc1_wave_out; //Wave out from voices
    wire             cDiv;
@@ -103,7 +103,7 @@ module tt_um_electronicstinkerer_dds_collab
        .TUNING_WIDTH(tuneW),
        .WAVE_SEL_WIDTH(3),
        .PULSEWIDTH_WIDTH(waveW),
-       .MODE_SEL_WIDTH(2)
+       .MODE_SEL_WIDTH(3)
      ) CMD_DECODE (
        .sys_clk(clk),
        .cmd_word(spi_cmd_word),
