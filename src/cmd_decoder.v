@@ -118,7 +118,7 @@ module cmd_decoder
       if (osc1_set_tune) begin
          osc1_tune <= osc1_tune_pre;
       end
-      if (osc1_set_tune) begin
+      if (osc1_set_pw) begin
          osc1_pw <= osc1_pw_pre;
       end
       if (osc1_set_wave) begin
