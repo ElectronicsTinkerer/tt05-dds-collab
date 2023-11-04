@@ -16,9 +16,10 @@ module tb_Mult (/*AUTOARG*/) ;
    Mult #(.m(12)) UUT(.clk(clk),.a(a),.b(b),.mult(M));
    initial begin
       clk = 0;
-      a = 12'b101;
-      b = 12'b101;
+      a = 12'haaa;
+//12'b101;
+      b = 12'haaa;
+      forever #10 clk=~clk;
    end
-   always #10 clk=~clk;
    
 endmodule // tb_Mult
