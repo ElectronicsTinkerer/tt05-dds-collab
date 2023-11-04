@@ -67,10 +67,7 @@ module spi_in
 
    // Just keep shifting until we get data
    always @(posedge sclk) begin
-      if (csb) begin
-         shift_reg <= {PACKET_WIDTH{1'b0}};
-      end
-      else begin
+      if (!csb) begin
          shift_reg <= {shift_reg[SR_WIDTH-2:0], mosi};
       end
    end
@@ -79,8 +76,7 @@ module spi_in
    // when the chip select line is deasserted
    localparam S0 = 2'b01,
               S1 = 2'b11,
-              S2 = 2'b10,
-              S_DNU = 2'b00;
+              S2 = 2'b10;
 
    reg [1:0]  state;
 
@@ -99,12 +95,12 @@ module spi_in
            cmd_valid <= 1'b1;
         end
         S2 : begin
+           cmd_valid <= 1'b0;
            if (!csb_sync) begin
               state <= S0;
-              cmd_valid <= 1'b0;
            end
         end
-        S_DNU : state <= S0; // Do Not Use
+        default : state <= S0;
       endcase
    end
    

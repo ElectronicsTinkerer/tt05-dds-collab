@@ -22,8 +22,8 @@
 
 module cdc_generic 
   #(
-    STAGES = 2,
-    W = 1
+    parameter STAGES = 2,
+    parameter W = 1
     ) (
        input wire          clk_in, clk_out,
        input wire [W-1:0]  d_in,
