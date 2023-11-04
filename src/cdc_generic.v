@@ -51,6 +51,6 @@ module cdc_generic
       end
    endgenerate
 
-   assign d_out = cdc_stages[STAGES];
+   assign d_out = cdc_stages[STAGES-1];
 
 endmodule : cdc_generic
