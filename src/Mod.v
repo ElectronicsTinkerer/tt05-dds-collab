@@ -34,16 +34,16 @@ module Mod #(parameter m = 12,parameter o=16)(/*AUTOARG*/
    always @ ( /*AUTOSENSE*/OSC0 or OSC1 or modSel or multO) begin
       case (modSel) 
 	2'b00: begin
-	   modOut = {(OSC0+OSC1),{o-m{1'b0}}};
+	   modOut = {(OSC0[m-1:1]+OSC1[m-1:1]),{o-m{1'b0}}};
 	end
 	2'b01: begin
-	    modOut = multO;
+	   modOut = multO;
 	end
 	2'b10: begin
-	    modOut = {OSC0,{o-m{1'b0}}}^{OSC1,{o-m{1'b0}}};
+	   modOut = {OSC0,{o-m{1'b0}}}^{OSC1,{o-m{1'b0}}};
 	end
 	2'b11: begin
-	    modOut = {(OSC0^OSC1),{o-m{1'b0}}};
+	   modOut = {(OSC0+OSC1),{o-m{1'b0}}};
 	end
       endcase
 	  
