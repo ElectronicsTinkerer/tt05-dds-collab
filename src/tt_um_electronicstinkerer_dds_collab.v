@@ -150,6 +150,7 @@ module tt_um_electronicstinkerer_dds_collab
        .tuningW(osc1_tune),
        .mod(osc1_pulse_width)
      );
+/* -----\/----- EXCLUDED -----\/-----
 
    mux_2 #( .m(waveW) ) PULS_MUX
      (
@@ -158,6 +159,7 @@ module tt_um_electronicstinkerer_dds_collab
       .sel(Psel),
       .out(osc0_pulse_width)
      );
+ -----/\----- EXCLUDED -----/\----- */
    
    Mod
      #(
