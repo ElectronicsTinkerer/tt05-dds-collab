@@ -43,6 +43,7 @@ module tt_um_electronicstinkerer_dds_collab
    wire             osc0_pw_sel; // Select internal external pwm for voice 0
    wire [16-1:0]    OUT;
    wire             dac_speed_sel;
+   reg [1:0]        dac_power_state;
    wire             dac_sclk, dac_mosi, dac_csb;
    wire             spi_sclk_in, spi_mosi, spi_csb;
    wire             spi_cmd_valid;
@@ -136,7 +137,7 @@ module tt_um_electronicstinkerer_dds_collab
        .m(waveW),
        .tune(tuneW)
      ) VOICE0 (
-       .CE(E0),
+       .CE(E0 & ena),
        .clk(cDiv),
        .OUT(osc0_wave_out),
        .sel(osc0_wave_sel),
@@ -150,7 +151,7 @@ module tt_um_electronicstinkerer_dds_collab
        .m(waveW),
        .tune(tuneW)
      ) VOICE1 (
-       .CE(E1),
+       .CE(E1 & ena),
        .clk(cDiv),
        .OUT(osc1_wave_out),
        .sel(osc1_wave_sel),

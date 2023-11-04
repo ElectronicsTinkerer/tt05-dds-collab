@@ -19,6 +19,7 @@ module tb_tt ();
    wire         dac_sclk, dac_mosi, dac_csb;
    wire [4:0]   out_dummy;
    reg          rst_n, ena;
+   reg [1:0]    dac_power_state;
 
    // Module instantiation
    tt_um_electronicstinkerer_dds_collab #() tt05
@@ -26,7 +27,8 @@ module tb_tt ();
     .ui_in({
             osc0_pw_sel,
             dac_speed_sel,
-            3'b0,
+            1'b0,
+            dac_power_state,
             csb,
             mosi,
             sclk
@@ -50,14 +52,14 @@ module tb_tt ();
    initial begin
       rst_n = 1'b0;
       ena = 1'b1;
-      #40 rst_n = 1'b1;
+      #30 rst_n = 1'b1;
    end
 
    
    // Set up clock
    initial begin
       sys_clk = 1'b0;
-      forever #10 sys_clk = ~sys_clk;
+      forever #20 sys_clk = ~sys_clk;
    end
 
    initial begin
@@ -67,33 +69,57 @@ module tb_tt ();
 
 
    // Stimulus
-   integer ii = PW-1;
-   reg [PW-1:0] v = 24'h0b0023;
    initial begin
+      dac_power_state = 2'b0;
       osc0_pw_sel = 1'b0;
       osc0_ext_pw = 8'h50;
       dac_speed_sel = 1'b1;
       csb = 1'b1;
-      #40 csb = 1'b0;
-      repeat (PW) begin
-         @(posedge sclk) begin
-            mosi = v[ii];
-            ii = ii - 1;
-         end
-      end
-      @(posedge sclk) csb = 1'b1;
+      // Set frequency of voice 0
+      sendCmd( 24'h02ffff );
+      // Set waveform to 3
+      sendCmd( 24'h080003 );
+      // Set modulation
+      sendCmd( 24'h040001 );
+      // Enable voice 0
+      sendCmd( 24'h010000 );
+
+      // Set frequency of voice 1
+      sendCmd( 24'h218000 );
+      // Set waveform
+      sendCmd( 24'h810005 );
+      // Set pulse to 800
+      sendCmd( 24'h410c00 );
+      // Enable voices 0 and 1
+      sendCmd( 24'h110000 );
         
-      #500000 $stop();
+        
+      // #500 $stop();
    end // initial begin
 
    // OUTPUT SR
    always @(negedge dac_sclk or posedge dac_csb) begin
       if (!dac_csb) begin
-         out_sr <= {out_sr[DW-2:0], mosi};
+         out_sr <= {out_sr[DW-2:0] , dac_mosi};
       end
       else begin
          data <= out_sr;
       end
    end
+
+   task automatic sendCmd(input [PW-1:0] in);
+      integer ii = PW-1;
+
+      begin
+         @(posedge sclk) csb = 1'b0;
+         repeat (PW) begin
+            @(posedge sclk) begin
+               mosi = in[ii];
+               ii = ii - 1;
+            end
+         end
+         @(posedge sclk) csb = 1'b1;
+      end
+   endtask  
 
 endmodule // tb_spi_main
