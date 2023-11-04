@@ -40,7 +40,7 @@ module Mult #(parameter m = 12) (/*AUTOARG*/
    end
    
    always @(posedge clk) begin
-      cState = nState;
+      cState <= nState;
       case (cState) 
 	s0: begin
 	   cnt <= 0;
