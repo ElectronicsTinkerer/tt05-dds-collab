@@ -13,13 +13,14 @@ Description   : Parameterized sequential multiplier
 */
 module Mult #(parameter m = 12) (/*AUTOARG*/
    // Outputs
-   mult,
+   mult, update,
    // Inputs
    a, b, clk
    ) ;
    input  [m-1:0] a, b;
    input	  clk;
    output reg [2*m-1:0]	mult;
+   output reg           update;
    reg [$clog2(m):0]	cnt;
    reg [2*m:0]	pA;
    //reg [m:0]		sum;
@@ -46,6 +47,7 @@ module Mult #(parameter m = 12) (/*AUTOARG*/
 	   cnt <= 0;
 	   pA <= {{m+1{1'b0}},a};
 	   nState <= s1;
+       update <= 1'b0;
 	end
 	s1: begin
 	   // if(cnt==(m[$clog2(m)-1:0])) begin
@@ -66,6 +68,7 @@ module Mult #(parameter m = 12) (/*AUTOARG*/
 	end
 	s2: begin
 	   mult <= pA[2*m-1:0];
+       update <= 1'b1;
 	   nState <= s0;
 	end
 	default: begin
