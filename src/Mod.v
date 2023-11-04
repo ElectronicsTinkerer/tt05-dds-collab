@@ -24,13 +24,15 @@ module Mod #(parameter m = 12,parameter o=16)(/*AUTOARG*/
    output reg [o-1:0] modOut;
    //input	  cDiv;
    input [2:0]	  modSel;
-   wire [o-1:0]	  multO;
+   wire [23:0]	  multO0;
+   wire [15:0]    multO;
    Mult #(.m(o/2))
    MULT
-     (.a(OSC0[(o/2)-1:0]),
-      .b(OSC1[(o/2)-1:0]),
+     (.a(OSC0[(24/2)-1:0]),
+      .b(OSC1[(24/2)-1:0]),
       .clk(clk),
-      .mult(multO));
+      .mult(multO0));
+   assign multO = multO0[23:23-16];
    always @ ( /*AUTOSENSE*/OSC0 or OSC1 or modSel or multO) begin
       case (modSel) 
 	    3'b000: begin
@@ -43,7 +45,7 @@ module Mod #(parameter m = 12,parameter o=16)(/*AUTOARG*/
 	       modOut = {(OSC0+OSC1),{(o-m){1'b0}}};
 	    end
 	    3'b011: begin
-	       modOut = multO;
+	       modOut = {{(o){multO[o-1]}} ^ multO[o-2:0], 1'b0};
 	    end
 	    3'b100: begin
 	       modOut = {OSC0, {(o-m){1'b1}}};
