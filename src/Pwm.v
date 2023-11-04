@@ -22,15 +22,16 @@ module Pwm
    // Outputs
    pwm,
    // Inputs
-   phase, mod
+   clk, phase, mod
    ) ;
+   input  clk;
    input [n-1:0] phase;
    input [m-1:0] mod;
    output wire [m-1:0] pwm;
    reg		      pul;
-   always @ ( /*AUTOSENSE*/mod or phase) begin
-      if(phase[n-1:n-m]==mod) pul =1;
-      if(phase[n-1:n-m]==MAX) pul =0;
+   always @ (posedge clk) begin
+      if(phase[n-1:n-m]==mod) pul <= 1;
+      if(phase[n-1:n-m]==MAX) pul <= 0;
    end
    assign pwm = {m{pul}};
 endmodule // pwm

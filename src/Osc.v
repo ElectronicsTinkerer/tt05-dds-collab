@@ -4,7 +4,14 @@ Author: Liam Crowley
 Date: 10/29/2023 06:49:21 PM
 Top wrapper file for the DDS algorithm
 INPUTS: 50/19MHz clk
+        Tuning Word
+        PWM modulation
+        Selection
 OUTPUTS: Waveform post mux
+PARAMETERS: n (Phase Reg Width)
+            m (Waveform width)
+            tune (tuning word width)
+
 
 */
 
@@ -14,43 +21,24 @@ module Osc
     parameter m = 12,
     parameter tune = 16
     )
+   //IO INSTATIATION
     (
     input wire		  clk,
     input wire [tune-1:0] tuningW,
     input wire [2:0]	  sel,
-    output wire [m-1:0]	  OUT,
     input wire		  CE,
-    input wire [m-1:0]	  mod	  
+    input wire [m-1:0]	  mod,
+    output wire [m-1:0]	  OUT	  
     );
-//    (
-//    input wire [7:0]  ui_in, // Dedicated inputs - connected to the input switches
-//    output wire [7:0] uo_out, // Dedicated outputs - connected to the 7 segment display
-//    input wire [7:0]  uio_in, // IOs: Bidirectional Input path
-//    output wire [7:0] uio_out, // IOs: Bidirectional Output path
-//    output wire [7:0] uio_oe, // IOs: Bidirectional Enable path (active high: 0=input, 1=output)
-//    input wire        ena, // will go high when the design is enabled
-//    input wire        clk, // clock
-//    input wire        rst_n     // reset_n - low to reset
-//    );
-//    wire cDiv18;
-    wire [n-1:0] phase;
+   
+    wire [n-1:0]        phase;
     wire [m-1:0]	triang;
     wire [m-1:0]	pulse;
     wire [m-1:0]	saw;
     wire [m-1:0]	sine;
     wire [m-1:0]	lfsr;
     wire [m-1:0]	pwm;
-   //assign tuningW = {ui_in,uio_in};
-    //assign {uo_out,uio_out[7:4]} = OUT;
-   /*
-    * 
-    div #(
-    ) DIV
-    (.clkI(clk),
-    .clkO(cDiv18)
-    );
-    */
-    
+    //PHASE ACCUMULATOR
     PhaseAccumulator
     #(
     .n(23),
@@ -64,7 +52,7 @@ module Osc
     .tuning(tuningW),
     .phaseReg(phase)
     );
-    
+    //TRIANGLE WAVEFORM
     Tri
     #(
     .n(n),
@@ -74,7 +62,8 @@ module Osc
     .phase(phase),
     .triang(triang)
     );
-    
+   
+    //PULSE WAVEFORM
     Pulse
     #(
     .n(n),
@@ -85,7 +74,8 @@ module Osc
     .phase(phase),
     .pulse(pulse)
     );
-    
+   
+    //SAW WAVEFORM
     Saw
     #(
     .n(n)
@@ -95,7 +85,8 @@ module Osc
     .phase(phase),
     .saw(saw)
     );
-    
+
+    //SINE WAVEFORM
     Sine
     #(
     .n(n),
@@ -106,7 +97,8 @@ module Osc
     .phase(phase),
     .sine(sine)
     );
-    
+
+    //NOISE WAVEFORM
     Lfsr
     #(
     .n(n),
@@ -118,19 +110,20 @@ module Osc
     .lfsr(lfsr)
     );
 
+    //PWM MODULATION
     Pwm
     #(
     .n(n),
     .m(m))
     PWM
     (
+    .clk(clk),
     .phase(phase),
     .mod(mod),
     .pwm(pwm)
     );
 
-   
-    
+    //OUTPUT MUX
     mux
     #(
     .m(m)

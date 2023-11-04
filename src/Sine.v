@@ -18,9 +18,7 @@ module Sine
     #(
     parameter n = 14,
     parameter m = 12,
-    //integer rad = ((2**n)/4)-1,
-    localparam rad = 127,
-    localparam mag = (2**m)-1
+    localparam rad = 127
     )
     (
     input [n-1:0] phase,
@@ -28,29 +26,10 @@ module Sine
     );
     reg [m-1:0] lut[0:rad];
     initial begin
-    /////2^13 size, not 13        
-       // $readmemh("//wsl.localhost/Ubuntu/home/lsc57/tt05-dds-collab/src/sin_table.mem",lut);
        $readmemh("./sin_table.mem",lut);
-       
     end
-    always @(phase or lut)
+    always @(*)
     begin
-    //probably better way to do this but i haven't thought of it yet
-    //case of top 2 bit
-       /*
-	* 
-        if(~phase[n-2]&&~phase[n-1])
-            sine = lut[phase[n-3:n-9]];
-        else if (phase[n-2]&&~phase[n-1])
-            sine = lut[~phase[n-3:n-9]];
-        else if (~phase[n-2]&&phase[n-1])
-            sine = mag-lut[phase[n-3:n-9]];
-        else if (phase[n-2]&&phase[n-1])
-            sine = {mag,-lut[~phase[n-3:n-9]]};
-    
-	*/
-       // Use $clog2(rad) instead of -9
-       //Vivado likes ranges to be bound by constant expressions
    	case(phase[n-1:n-2])
 	   	2'b00: sine = lut[phase[n-3:n-9]];
 	   	2'b01: sine = lut[~phase[n-3:n-9]];
