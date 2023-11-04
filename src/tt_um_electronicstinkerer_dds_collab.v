@@ -40,7 +40,7 @@ module tt_um_electronicstinkerer_dds_collab
    wire [waveW-1:0] osc0_pulse_width,     // Modulation inputs for pwm
                     osc1_pulse_width,
                     osc0_ext_pulse_width;
-   wire             E0, E1, Psel; //enable and select internal external pwm for voice 0
+   wire		    E0, E1; //enable voice 0 and voice 1
    wire [16-1:0]    OUT;
    wire             dac_sclk, dac_mosi, dac_csb;
    wire             spi_sclk_in, spi_mosi, spi_csb;
@@ -150,19 +150,11 @@ module tt_um_electronicstinkerer_dds_collab
        .tuningW(osc1_tune),
        .mod(osc1_pulse_width)
      );
-   assign osc0_pulse_width = osc1_wave_out;
-   
-/* -----\/----- EXCLUDED -----\/-----
 
-   mux_2 #( .m(waveW) ) PULS_MUX
-     (
-      .in0(osc1_wave_out),
-      .in1(osc0_ext_pulse_width),
-      .sel(Psel),
-      .out(osc0_pulse_width)
-     );
- -----/\----- EXCLUDED -----/\----- */
-   
+   ///////////////////////////
+   // MODULATION
+   ///////////////////////////
+   assign osc0_pulse_width = osc1_wave_out;
    Mod
      #(
        .m(waveW),
@@ -175,16 +167,9 @@ module tt_um_electronicstinkerer_dds_collab
         .modOut(OUT)
      );
    
-/* -----\/----- EXCLUDED -----\/-----
-   mux_2
-     #(.m(waveW))
-   OUTMUX
-     (.sel(Osel),
-      .in0(Oi0),
-      .in1(Oi1),
-      .out(OUT));
- -----/\----- EXCLUDED -----/\----- */
-
+   ///////////////////////////
+   // SPI OUTPUT
+   ///////////////////////////
    spi_main_x2 #(.WORD_WIDTH(16)) SPIO
      (
       .sys_clk(clk),
