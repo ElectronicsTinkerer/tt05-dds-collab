@@ -77,19 +77,19 @@ module tb_tt ();
       csb = 1'b1;
       // Set frequency of voice 0
       sendCmd( 24'h02ffff );
-      // Set waveform to 3
+      // Set waveform
       sendCmd( 24'h080003 );
       // Set modulation
-      sendCmd( 24'h040001 );
+      sendCmd( 24'h040007 );
       // Enable voice 0
       sendCmd( 24'h010000 );
 
       // Set frequency of voice 1
-      sendCmd( 24'h218000 );
+      sendCmd( 24'h214000 );
       // Set waveform
-      sendCmd( 24'h810005 );
+      sendCmd( 24'h810000 );
       // Set pulse to 800
-      sendCmd( 24'h410c00 );
+      sendCmd( 24'h410800 );
       // Enable voices 0 and 1
       sendCmd( 24'h110000 );
         
