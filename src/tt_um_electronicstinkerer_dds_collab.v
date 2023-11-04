@@ -43,6 +43,7 @@ module tt_um_electronicstinkerer_dds_collab
    wire             osc0_pw_sel; // Select internal external pwm for voice 0
    wire [16-1:0]    OUT;
    wire             dac_speed_sel;
+   reg [1:0]        dac_power_state;
    wire             dac_sclk, dac_mosi, dac_csb;
    wire             spi_sclk_in, spi_mosi, spi_csb;
    wire             spi_cmd_valid;
@@ -56,18 +57,19 @@ module tt_um_electronicstinkerer_dds_collab
    // INPUTS
    //ena
    //rst_n
-   assign spi_sclk_in   = ui_in[0];
-   assign spi_mosi      = ui_in[1];
-   assign spi_csb       = ui_in[2];
-                        //ui_in[5..3]
-   assign dac_speed_sel = ui_in[6];
-   assign osc0_pw_sel   = ui_in[7];
+   assign spi_sclk_in     = ui_in[0];
+   assign spi_mosi        = ui_in[1];
+   assign spi_csb         = ui_in[2];
+                          //ui_in[3]
+   assign dac_power_state = ui_in[5:4];
+   assign dac_speed_sel   = ui_in[6];
+   assign osc0_pw_sel     = ui_in[7];
    
    // OUTPUTS
    assign uo_out[4:0] = 5'b0;
-   assign uo_out[5] = dac_csb;
-   assign uo_out[6] = dac_mosi;
-   assign uo_out[7] = dac_sclk;
+   assign uo_out[5]   = dac_csb;
+   assign uo_out[6]   = dac_mosi;
+   assign uo_out[7]   = dac_sclk;
 
    // I/Os
    assign uio_out = 8'b0;
@@ -135,7 +137,7 @@ module tt_um_electronicstinkerer_dds_collab
        .m(waveW),
        .tune(tuneW)
      ) VOICE0 (
-       .CE(E0),
+       .CE(E0 & ena),
        .clk(cDiv),
        .OUT(osc0_wave_out),
        .sel(osc0_wave_sel),
@@ -149,7 +151,7 @@ module tt_um_electronicstinkerer_dds_collab
        .m(waveW),
        .tune(tuneW)
      ) VOICE1 (
-       .CE(E1),
+       .CE(E1 & ena),
        .clk(cDiv),
        .OUT(osc1_wave_out),
        .sel(osc1_wave_sel),
@@ -187,7 +189,7 @@ module tt_um_electronicstinkerer_dds_collab
      (
       .sys_clk(clk),
       .parallel_in(OUT),
-      .power_state(2'b11),
+      .power_state(dac_power_state),
       .load(ena),
       .sclk(dac_sclk),
       .mosi(dac_mosi),
