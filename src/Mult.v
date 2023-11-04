@@ -57,7 +57,7 @@ module Mult #(parameter m = 12) (/*AUTOARG*/
 	      cnt<=cnt+1;
 	      nState <= cState;
 	      if(pA[0]) begin
-		     {pA, dummy} <= {{1'b0,pA[2*m-1:m]}+{1'b0,b},pA[m-1:0]};
+		     {pA, dummy} <= {1'b0, {1'b0,pA[2*m-1:m]}+{1'b0,b},pA[m-1:0]};
 	      end
 	      else begin
              pA <= pA >> 1;
