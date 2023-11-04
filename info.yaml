@@ -59,8 +59,8 @@ documentation:
     - SPI MOSI (Control Data In)
     - SPI CSB  (Control Data In)
     - none
-    - none
-    - none
+    - DAC POWER MODE BIT 0
+    - DAC POWER MODE BIT 1
     - DAC SPEED SELECT (High = half speed output shift, LOW = full speed shift)
     - OSC0 PW SELECT (High = use external pulse width, LOW = use OSC1 output as pulse width)
 # A description of what the outputs do (e.g. status LED, SPI MISO, etc)
