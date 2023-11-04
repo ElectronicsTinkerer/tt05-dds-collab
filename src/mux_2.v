@@ -20,8 +20,7 @@ module mux_2 #(parameter m = 12) (/*AUTOARG*/
    ) ;
    input  [m-1:0] in0, in1;
    input	  sel;
-   output 	  out; 
-   reg	[m-1:0]	  out;
+   output reg [m-1:0] out; 
    always @ ( /*AUTOSENSE*/in0 or in1 or sel) begin
       case (sel) 
 	1'b0: begin

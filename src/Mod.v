@@ -17,15 +17,21 @@ module Mod #(parameter m = 12,parameter o=16)(/*AUTOARG*/
    // Outputs
    modOut,
    // Inputs
-   OSC0, OSC1, clk, modSel
+   OSC0, OSC1, clk, cDiv, modSel
    ) ;
    input  [m-1:0] OSC0, OSC1;
    input	  clk;
-   output modOut;
+   output	  modOut;
+   input	  cDiv;
    input [1:0]	  modSel;
    reg	[o-1:0]	  modOut;
-   wire [o-1:0] multO;
-   Mult #(.m(o/2)) MULT (.a(OSC0[(o/2)-1:0]),.b(OSC1[(o/2)-1:0]),.clk(clk),.mult(multO));
+   wire [o-1:0]	  multO;
+   Mult #(.m(o/2))
+   MULT
+     (.a(OSC0[(o/2)-1:0]),
+      .b(OSC1[(o/2)-1:0]),
+      .clk(clk),
+      .mult(multO));
    always @ ( /*AUTOSENSE*/OSC0 or OSC1 or modSel or multO) begin
       case (modSel) 
 	2'b00: begin
