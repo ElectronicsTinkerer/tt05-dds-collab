@@ -36,11 +36,11 @@ module PhaseAccumulator
     input wire ce
     );
     reg [n-1:0] phase;
-    initial phase = 1;
+    initial phase = 0;
     always @(posedge clk) 
       begin
-	 if(~ce) phase <= phase;
-	 else phase <= phase + {{n-tune{1'b0}},tuning};
-    end
+         if (ce) phase <= phase + {{n-tune{1'b0}},tuning};
+      end
     assign phaseReg = phase[n-1:n-m];
 endmodule
+
