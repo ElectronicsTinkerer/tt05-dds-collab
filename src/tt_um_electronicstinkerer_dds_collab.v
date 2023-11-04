@@ -72,7 +72,7 @@ module tt_um_electronicstinkerer_dds_collab
    // I/Os
    assign uio_out = 8'b0;
    assign uio_oe  = 8'b0;
-   assign osc0_ext_pulse_width = {uio_in, {(waveW-$bits(uio_in)){1'b0}}};
+   assign osc0_ext_pulse_width = {uio_in, {(waveW-8){1'b0}}};
                     
       
    ///////////////////////////
