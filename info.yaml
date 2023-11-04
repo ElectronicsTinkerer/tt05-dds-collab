@@ -47,11 +47,11 @@ documentation:
 
 # Longer description of how the project works. You can use standard markdown format.
   how_it_works: |
-      Explain how your project works
+      This project uses a Direct Digital Synthesis algorithm to produce standard waveform such as sine, saw, pulse, and triangle, then a linear feedback shift register to produce noise. This is then pushed through a modulation module that utilizes different modulation techniques, such as amplitude modulation (multiplication), summing, subtraction, XOR, wrap around addition, passthrough of OSC0, passthrough of OSC1, and AND. It utilizes a SPI controller for both control and waveform output. 
 
 # Instructions on how someone could test your project, include things like what buttons do what and how to set the clock if needed
   how_to_test:  |
-      Explain how to test your project
+      In order to test the project, using a DAC, simply connect the output of the DAC to an amplifier then a speaker, or to an oscilloscope. The sending of control words is a little more complicated.
 
 # A description of what the inputs do (e.g. red button, SPI CLK, SPI MOSI, etc).
   inputs:               
@@ -87,7 +87,7 @@ documentation:
 # The following fields are optional
   tag:          "dds, sound, serial"      # comma separated list of tags: test, encryption, experiment, clock, animation, utility, industrial, pwm, fpga, alu, microprocessor, risc, riscv, sensor, signal generator, fft, filter, music, bcd, sound, serial, timer, random number generator, calculator, decoder, counter, puzzle, multiplier, game, oscillator,
   external_hw:  "DAC8411 on output SPI bus"      # Describe any external hardware needed
-  discord:      "zach08z"      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
-  doc_link:     ""      # URL to longer form documentation, eg the README.md in your repository
+  discord:      "zach08z,solderwitch"      # Your discord handle, used for communication and automatically assigning tapeout role after a submission
+  doc_link:     "DOCS.md"      # URL to longer form documentation, eg the README.md in your repository
   clock_hz:     50000000       # Clock frequency in Hz (if required)
   picture:      ""      # relative path to a picture in your repository (must be 512kb or less)
