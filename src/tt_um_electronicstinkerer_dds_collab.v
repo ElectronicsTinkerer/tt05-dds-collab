@@ -40,7 +40,8 @@ module tt_um_electronicstinkerer_dds_collab
    wire [waveW-1:0] osc0_pulse_width,     // Modulation inputs for pwm
                     osc1_pulse_width,
                     osc0_ext_pulse_width;
-   wire		    E0, E1; //enable voice 0 and voice 1
+   wire             E0, E1;      // Enables for voices
+   wire             osc0_pw_sel; // Select internal external pwm for voice 0
    wire [16-1:0]    OUT;
    wire             dac_sclk, dac_mosi, dac_csb;
    wire             spi_sclk_in, spi_mosi, spi_csb;
@@ -56,6 +57,8 @@ module tt_um_electronicstinkerer_dds_collab
    assign spi_sclk_in = ui_in[0];
    assign spi_mosi    = ui_in[1];
    assign spi_csb     = ui_in[2];
+                      //ui_in[6..3]
+   assign osc0_pw_sel = ui_in[7];
    
    // OUTPUTS
    assign uo_out[4:0] = 5'b0;
@@ -154,7 +157,14 @@ module tt_um_electronicstinkerer_dds_collab
    ///////////////////////////
    // MODULATION
    ///////////////////////////
-   assign osc0_pulse_width = osc1_wave_out;
+   mux_2 #( .m(waveW) ) PULS_MUX
+     (
+      .in0(osc1_wave_out),
+      .in1(osc0_ext_pulse_width),
+      .sel(osc0_pw_sel),
+      .out(osc0_pulse_width)
+     );
+   
    Mod
      #(
        .m(waveW),
