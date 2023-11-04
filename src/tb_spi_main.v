@@ -9,7 +9,7 @@ module tb_spi_main ();
 
    parameter WW = 16;
 
-   reg       sys_clk, load;
+   reg       sys_clk, load, speed_sel;
    reg [WW-1:0] data;
    reg [1:0]    power_state;
    wire         sclk, mosi, csb;
@@ -28,7 +28,8 @@ module tb_spi_main ();
       .power_state(power_state),
       .sclk(sclk), 
       .mosi(mosi),
-      .csb(csb)
+      .csb(csb),
+      .speed_sel(speed_sel)
       );
 
    // Set up clock
@@ -42,14 +43,17 @@ module tb_spi_main ();
       load = 1'b0;
       data = 16'ha5a5;
       power_state = 2'b11;
+      speed_sel = 1'b1;
       @(posedge sys_clk)
         load = 1'b1;
-      @(posedge sys_clk)
+      @(posedge csb)
         data = 16'h04d8;
       power_state = 2'b01;
-      @(posedge csb) /* empty */;
+      @(posedge csb)
+        data = 16'hf0f0f0;
+      power_state = 2'b10;
       @(posedge csb) load = 1'b0;
-      #50 $stop();
+      #500 $stop();
    end
 
 endmodule // tb_spi_main

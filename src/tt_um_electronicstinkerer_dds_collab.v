@@ -42,6 +42,7 @@ module tt_um_electronicstinkerer_dds_collab
    wire             E0, E1;      // Enables for voices
    wire             osc0_pw_sel; // Select internal external pwm for voice 0
    wire [16-1:0]    OUT;
+   wire             dac_speed_sel;
    wire             dac_sclk, dac_mosi, dac_csb;
    wire             spi_sclk_in, spi_mosi, spi_csb;
    wire             spi_cmd_valid;
@@ -55,11 +56,12 @@ module tt_um_electronicstinkerer_dds_collab
    // INPUTS
    //ena
    //rst_n
-   assign spi_sclk_in = ui_in[0];
-   assign spi_mosi    = ui_in[1];
-   assign spi_csb     = ui_in[2];
-                      //ui_in[6..3]
-   assign osc0_pw_sel = ui_in[7];
+   assign spi_sclk_in   = ui_in[0];
+   assign spi_mosi      = ui_in[1];
+   assign spi_csb       = ui_in[2];
+                        //ui_in[5..3]
+   assign dac_speed_sel = ui_in[6];
+   assign osc0_pw_sel   = ui_in[7];
    
    // OUTPUTS
    assign uo_out[4:0] = 5'b0;
@@ -186,10 +188,11 @@ module tt_um_electronicstinkerer_dds_collab
       .sys_clk(clk),
       .parallel_in(OUT),
       .power_state(2'b11),
-      .load(cDiv),
+      .load(ena),
       .sclk(dac_sclk),
       .mosi(dac_mosi),
-      .csb(dac_csb)
+      .csb(dac_csb),
+      .speed_sel(dac_speed_sel)
      );
    
    
