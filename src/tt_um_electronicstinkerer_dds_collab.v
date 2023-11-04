@@ -14,7 +14,6 @@
 
 module tt_um_electronicstinkerer_dds_collab 
   #(
-    parameter FOO = 0,
     parameter tuneW = 16, //tuning word width
     parameter waveW = 12, //waveform width
     parameter phaseW = 14,//phase from phase accumulator width
@@ -54,6 +53,8 @@ module tt_um_electronicstinkerer_dds_collab
    ///////////////////////////
 
    // INPUTS
+   //ena
+   //rst_n
    assign spi_sclk_in = ui_in[0];
    assign spi_mosi    = ui_in[1];
    assign spi_csb     = ui_in[2];
