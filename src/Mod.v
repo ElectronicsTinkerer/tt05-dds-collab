@@ -43,7 +43,7 @@ module Mod #(parameter m = 12,parameter o=16)(/*AUTOARG*/
 	       modOut = {(OSC0+OSC1),{(o-m){1'b0}}};
 	    end
 	    3'b011: begin
-	       modOut = {{(o){multO[o-1]}} ^ multO[o-2:0], 1'b0};
+	       modOut = {{(o-1){multO[o-1]}} ^ multO[o-2:0], 1'b0};
 	    end
 	    3'b100: begin
 	       modOut = {OSC0, {(o-m){1'b1}}};
