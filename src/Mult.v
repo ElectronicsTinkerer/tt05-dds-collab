@@ -20,8 +20,8 @@ module Mult #(parameter m = 12) (/*AUTOARG*/
    input  [m-1:0] a, b;
    input	  clk;
    output reg [2*m-1:0]	mult;
-   reg [$clog2(m)-1:0]	cnt;
-   reg [2*m:0]	pA,TEMP;
+   reg [$clog2(m):0]	cnt;
+   reg [2*m:0]	pA;
    //reg [m:0]		sum;
    //reg [2*m:0]	TEMP;
    
@@ -48,21 +48,21 @@ module Mult #(parameter m = 12) (/*AUTOARG*/
 	   nState <= s1;
 	end
 	s1: begin
-	   if(cnt==(m[$clog2(m)-1:0])) begin
+	   // if(cnt==(m[$clog2(m)-1:0])) begin
+	   if(cnt==m) begin
 	      nState <= s2;
 	   end
-	   else begin
+	   else begin : shift_thing
+          reg dummy;
 	      cnt<=cnt+1;
 	      nState <= cState;
 	      if(pA[0]) begin
-		 //sum=pA[2*m-1:m]+b;
-		 //TEMP={sum,pA[m-1:1]};
-		 TEMP={{1'b0,pA[2*m-1:m]}+{1'b0,b},pA[m-1:0]};
+		     {pA, dummy} <= {{1'b0,pA[2*m-1:m]}+{1'b0,b},pA[m-1:0]};
 	      end
-	      else TEMP=pA;
-	      pA<=TEMP>>1;
+	      else begin
+             pA <= pA >> 1;
+          end
 	   end
-	   
 	end
 	s2: begin
 	   mult <= pA[2*m-1:0];
@@ -70,7 +70,7 @@ module Mult #(parameter m = 12) (/*AUTOARG*/
 	end
 	default: begin
 	   nState <= s0;
-	end
+	end 
       endcase
 	  
    end
